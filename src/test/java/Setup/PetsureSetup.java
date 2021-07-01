@@ -46,7 +46,7 @@ public class PetsureSetup {
     @AfterTest
     public void teardown() {
         if (driver != null) {
-            driver.quit();
+//            driver.quit();
         }
     }
 

@@ -43,10 +43,11 @@ public class TestPetDetails extends PetsureSetup {
     }
 
     @Test(priority = 1)
-    public void navigate_to_homepage_click_on_getstarted() {
+    public void navigate_to_homepage_enter_pet_details() {
         PetDetails objPetDetails = new PetDetails(driver);
-        objPetDetails.veryHeader();
-        objPetDetails.clickOnGetStarted();
+        objPetDetails.enterPetName();
+        objPetDetails.clickContinueButton();
+        objPetDetails.test();
     }
 
     @Test(priority = 2)
