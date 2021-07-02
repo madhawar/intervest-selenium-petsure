@@ -1,5 +1,6 @@
 package Pages;
 
+import Utils.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -63,7 +64,19 @@ public class PetDetails {
     WebElement Breed;
 
     @FindBy(xpath = "//*[@id='breedSelect']")
-    WebElement BreedSearch;
+    WebElement BreedSelect;
+
+    @FindBy(xpath = "//*[@id='breedSelectCross']")
+    WebElement BreedSelectCross;
+
+    @FindBy(xpath = "//*[@id='breedSelectCross1']")
+    WebElement BreedSelectCross1;
+
+    @FindBy(xpath = "//*[@id='breedSelectCross2']")
+    WebElement BreedSelectCross2;
+
+    @FindBy(xpath = "//*[@id='breedSelectDominant']")
+    WebElement BreedSelectDominant;
 
     @FindBy(xpath = "//*[@id='pure-Hello World']")
     WebElement BreedPureList;
@@ -162,18 +175,21 @@ public class PetDetails {
             switch (type) {
                 case "moggie":
                     MoggieCat.click();
+                    Log.info("SELECTED CAT > MOGGIE");
                     break;
                 case "pedigree":
                     PedigreeCat.click();
                     Breed.sendKeys(breed);
-                    BreedSearch.click();
+                    BreedSelect.click();
                     driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
+                    Log.info("SELECTED CAT > PEDIGREE");
                     break;
                 case "other":
                     OtherCat.click();
                     Breed.sendKeys(breed);
-                    BreedSearch.click();
+                    BreedSelect.click();
                     driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
+                    Log.info("SELECTED CAT > OTHER");
                     break;
             }
         } else if (animal.equals("dog")) {
@@ -181,33 +197,40 @@ public class PetDetails {
                 case "pedigree":
                     PedigreeDog.click();
                     Breed.sendKeys(breed);
-                    BreedSearch.click();
+                    BreedSelect.click();
                     driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
+                    Log.info("SELECTED DOG > PEDIGREE");
                     break;
                 case "cross":
                     if (dominant_breed == null) {
                         CrossBreedDog.click();
                         BreedCross.sendKeys(breed);
-                        BreedSearch.click();
+                        BreedSelectCross.click();
                         driver.findElement(By.xpath("//*[@id='cross-" + breed + "']")).click();
+                        Log.info("SELECTED DOG > CROSS BREED");
                     }
                     else {
                         CrossBreedDog.click();
                         BreedNotsure.click();
 
                         BreedCross1.sendKeys(breed);
+                        BreedSelectCross1.click();
                         driver.findElement(By.xpath("//*[@id='cross-" + breed + "']")).click();
                         BreedCross2.sendKeys(dominant_breed);
+                        BreedSelectCross2.click();
                         driver.findElement(By.xpath("//*[@id='cross-" + dominant_breed + "']")).click();
+                        Log.info("SELECTED DOG > CROSS BREED > ENTERED TWO CROSS BREEDS");
                     }
                     break;
                 case "mixed":
                     if (dominant_breed != null) {
                         MixedBreedDog.click();
                         BreedDominant.sendKeys(dominant_breed);
-                        BreedSearch.click();
+                        BreedSelectDominant.click();
                         driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
-                    } else {
+                        Log.info("SELECTED DOG > MIXED BREED > ENTERED DOMINANT BREED");
+                    }
+                    else {
                         MixedBreedDog.click();
                         BreedNotsure.click();
 
@@ -230,54 +253,13 @@ public class PetDetails {
                                 DogWeightOption3.click();
                                 break;
                         }
-                        break;
+                    Log.info("SELECTED DOG > MIXED BREED > WEIGHT");
                     }
+                    break;
             }
         }
         Continue.click();
     }
-
-//        public void petsurePageFourDogCrossBreed (String animal, String breed, String dominant_breed){
-//            if (animal.equals("dog")) {
-//                CrossBreedDog.click();
-//                BreedNotsure.click();
-//
-//                BreedCross1.sendKeys(breed);
-//                driver.findElement(By.xpath("//*[@id='cross-" + breed + "']")).click();
-//                BreedCross2.sendKeys(dominant_breed);
-//                driver.findElement(By.xpath("//*[@id='cross-" + dominant_breed + "']")).click();
-//            }
-//            Continue.click();
-//    }
-
-//        public void petsurePageFourDogMixedBreed (String animal){
-//            if (animal.equals("dog")) {
-//                MixedBreedDog.click();
-//                BreedNotsure.click();
-//
-//                Random r = new Random();
-//                int low = 1;
-//                int high = 4;
-//                int result = r.nextInt(high - low) + low;
-//
-//                switch (result) {
-//                    case 1:
-//                        DogWeight.click();
-//                        DogWeightOption1.click();
-//                        break;
-//                    case 2:
-//                        DogWeight.click();
-//                        DogWeightOption2.click();
-//                        break;
-//                    case 3:
-//                        DogWeight.click();
-//                        DogWeightOption3.click();
-//                        break;
-//                }
-//            }
-//            Continue.click();
-//        }
-//    }
 
     public void petsurePageFive(String neutered_spayed, String microchipped) {
         switch (neutered_spayed) {
@@ -293,11 +275,13 @@ public class PetDetails {
             case "yes":
                 MicrochipYes.click();
                 Continue.click();
+                Log.info("MICROCHIPPED. ELIGIBLE FOR MISSING PET COVER.");
                 break;
             case "no":
                 MicrochipNo.click();
                 Continue.click();
                 Confirm.click();
+                Log.info("NOT MICROCHIPPED. NOT ELIGIBLE FOR MISSING PET COVER.");
                 break;
         }
     }
@@ -311,9 +295,11 @@ public class PetDetails {
         switch (dental_illness) {
             case "yes":
                 Yes.click();
+                Log.info("DENTAL ILLNESS REQUESTED.DENTAL ILLNESS COVER WILL BEINCLUDED.");
                 break;
             case "no":
                 No.click();
+                Log.info("DENTAL ILLNESS NOT REQUESTED. NOT ELIGIBLE FOR DENTAL ILLNESS COVER.");
                 break;
         }
         Continue.click();

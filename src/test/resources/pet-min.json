@@ -1,15 +1,15 @@
 {
   "petCommon": [
     {
-      "animal": "cat",
-      "name": "nicole",
+      "animal": "dog",
+      "name": "lando",
       "gender": "male",
-      "dobDay": "24",
-      "dobMonth": "09",
-      "dobYear": "2019",
-      "type": "pedigree",
-      "breed": "Norwegian Forest Cat",
-      "dominant_breed": "Norwegian Forest Cat",
+      "dobDay": "14",
+      "dobMonth": "10",
+      "dobYear": "2016",
+      "type": "mixed",
+      "breed": "Labrador",
+      "dominant_breed": "",
       "neutered_spayed": "no",
       "microchipped": "yes",
       "donation": "10",

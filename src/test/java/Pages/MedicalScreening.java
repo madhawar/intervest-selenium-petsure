@@ -1,5 +1,6 @@
 package Pages;
 
+import Utils.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -47,6 +48,8 @@ public class MedicalScreening {
             No.click();
             Continue.click();
 
+            Log.info("MEDICAL COVER NOT REQUIRED.");
+
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {
@@ -57,6 +60,8 @@ public class MedicalScreening {
             if (awaiting_surgery.equals("yes")) {
                 Yes.click();
                 Continue.click();
+
+                Log.info("MEDICAL COVER NOT PROVIDED.");
 
                 try {
                     Thread.sleep(10000);
@@ -87,6 +92,8 @@ public class MedicalScreening {
                 No.click();
                 Continue.click();
 
+                Log.info("NAVIGATING TO MEDICAL SCREENING.");
+
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
@@ -96,13 +103,13 @@ public class MedicalScreening {
                 driver.switchTo().frame(0);
                 switch (animal) {
                     case "cat":
-                        EnterCondition.sendKeys("tick");
+                        EnterCondition.sendKeys("ticks");
                         try {
                             Thread.sleep(10000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        SearchCondition.click();
+//                        SearchCondition.click();
                         driver.findElement(By.xpath("//button[@title='Ticks (feline)']")).click();
                         driver.findElement(By.xpath("//input[@name='answerNum' and @value='2']")).click();
                         try {
@@ -114,6 +121,7 @@ public class MedicalScreening {
                         MedicalContinue.click();
                         MedicalFinish.click();
                         Continue.click();
+                        Log.info("COMPLETED MEDICAL SCREENING.");
 
                         try {
                             Thread.sleep(10000);
@@ -123,13 +131,13 @@ public class MedicalScreening {
 
                         break;
                     case "dog":
-                        EnterCondition.sendKeys("tick");
+                        EnterCondition.sendKeys("ticks");
                         try {
                             Thread.sleep(10000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        SearchCondition.click();
+//                        SearchCondition.click();
                         driver.findElement(By.xpath("//button[@title='Ticks (canine)']")).click();
                         driver.findElement(By.xpath("//input[@name='answerNum' and @value='2']")).click();
                         try {
@@ -141,6 +149,8 @@ public class MedicalScreening {
                         MedicalContinue.click();
                         MedicalFinish.click();
                         Continue.click();
+                        Log.info("COMPLETED MEDICAL SCREENING.");
+
                         try {
                             Thread.sleep(10000);
                         } catch (InterruptedException e) {
