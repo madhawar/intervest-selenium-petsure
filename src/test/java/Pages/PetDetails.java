@@ -124,12 +124,12 @@ public class PetDetails {
         PageFactory.initElements(driver, this);
     }
 
-    public void enterPetName() {
+    public void petsurePageOne() {
         PetName.sendKeys("Togo");
         Continue.click();
     }
 
-    public void selectPetType(String animal) {
+    public void petsurePageTwo(String animal) {
         switch (animal) {
             case "cat":
                 Cat.click();
@@ -141,7 +141,7 @@ public class PetDetails {
         Continue.click();
     }
 
-    public void selectPetGenderAndBirthDay(String gender, String birthday, String birthmonth, String birthyear) {
+    public void petsurePageThree(String gender, String birthday, String birthmonth, String birthyear) {
         switch (gender) {
             case "male":
                 Male.click();
@@ -157,7 +157,7 @@ public class PetDetails {
         Continue.click();
     }
 
-    public void selectBreed(String animal, String type, String breed, String dominant_breed) {
+    public void petsurePageFour(String animal, String type, String breed, String dominant_breed) {
         if (animal.equals("cat")) {
             switch (type) {
                 case "moggie":
@@ -176,8 +176,7 @@ public class PetDetails {
                     driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
                     break;
             }
-        }
-        else if (animal.equals("dog")) {
+        } else if (animal.equals("dog")) {
             switch (type) {
                 case "pedigree":
                     PedigreeDog.click();
@@ -186,64 +185,101 @@ public class PetDetails {
                     driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
                     break;
                 case "cross":
-                    CrossBreedDog.click();
-                    BreedCross.sendKeys(breed);
-                    BreedSearch.click();
-                    driver.findElement(By.xpath("//*[@id='cross-" + breed + "']")).click();
+                    if (dominant_breed == null) {
+                        CrossBreedDog.click();
+                        BreedCross.sendKeys(breed);
+                        BreedSearch.click();
+                        driver.findElement(By.xpath("//*[@id='cross-" + breed + "']")).click();
+                    }
+                    else {
+                        CrossBreedDog.click();
+                        BreedNotsure.click();
+
+                        BreedCross1.sendKeys(breed);
+                        driver.findElement(By.xpath("//*[@id='cross-" + breed + "']")).click();
+                        BreedCross2.sendKeys(dominant_breed);
+                        driver.findElement(By.xpath("//*[@id='cross-" + dominant_breed + "']")).click();
+                    }
                     break;
                 case "mixed":
-                    MixedBreedDog.click();
-                    BreedDominant.sendKeys(dominant_breed);
-                    BreedSearch.click();
-                    driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
-                    break;
+                    if (dominant_breed != null) {
+                        MixedBreedDog.click();
+                        BreedDominant.sendKeys(dominant_breed);
+                        BreedSearch.click();
+                        driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
+                    } else {
+                        MixedBreedDog.click();
+                        BreedNotsure.click();
+
+                        Random r = new Random();
+                        int low = 1;
+                        int high = 4;
+                        int result = r.nextInt(high - low) + low;
+
+                        switch (result) {
+                            case 1:
+                                DogWeight.click();
+                                DogWeightOption1.click();
+                                break;
+                            case 2:
+                                DogWeight.click();
+                                DogWeightOption2.click();
+                                break;
+                            case 3:
+                                DogWeight.click();
+                                DogWeightOption3.click();
+                                break;
+                        }
+                        break;
+                    }
             }
         }
         Continue.click();
     }
 
-    public void dogCrossBreedNotListed(String animal, String breed, String dominant_breed) {
-        if (animal.equals("dog")) {
-            CrossBreedDog.click();
-            BreedNotsure.click();
+//        public void petsurePageFourDogCrossBreed (String animal, String breed, String dominant_breed){
+//            if (animal.equals("dog")) {
+//                CrossBreedDog.click();
+//                BreedNotsure.click();
+//
+//                BreedCross1.sendKeys(breed);
+//                driver.findElement(By.xpath("//*[@id='cross-" + breed + "']")).click();
+//                BreedCross2.sendKeys(dominant_breed);
+//                driver.findElement(By.xpath("//*[@id='cross-" + dominant_breed + "']")).click();
+//            }
+//            Continue.click();
+//    }
 
-            BreedCross1.sendKeys(breed);
-            driver.findElement(By.xpath("//*[@id='cross-" + breed + "']")).click();
-            BreedCross2.sendKeys(dominant_breed);
-            driver.findElement(By.xpath("//*[@id='cross-" + dominant_breed + "']")).click();
-        }
-        Continue.click();
-    }
+//        public void petsurePageFourDogMixedBreed (String animal){
+//            if (animal.equals("dog")) {
+//                MixedBreedDog.click();
+//                BreedNotsure.click();
+//
+//                Random r = new Random();
+//                int low = 1;
+//                int high = 4;
+//                int result = r.nextInt(high - low) + low;
+//
+//                switch (result) {
+//                    case 1:
+//                        DogWeight.click();
+//                        DogWeightOption1.click();
+//                        break;
+//                    case 2:
+//                        DogWeight.click();
+//                        DogWeightOption2.click();
+//                        break;
+//                    case 3:
+//                        DogWeight.click();
+//                        DogWeightOption3.click();
+//                        break;
+//                }
+//            }
+//            Continue.click();
+//        }
+//    }
 
-    public void dogMixedBreedNotListed(String animal) {
-        if (animal.equals("dog")) {
-            MixedBreedDog.click();
-            BreedNotsure.click();
-
-            Random r = new Random();
-            int low = 1;
-            int high = 4;
-            int result = r.nextInt(high-low) + low;
-
-            switch (result) {
-                case 1:
-                    DogWeight.click();
-                    DogWeightOption1.click();
-                    break;
-                case 2:
-                    DogWeight.click();
-                    DogWeightOption2.click();
-                    break;
-                case 3:
-                    DogWeight.click();
-                    DogWeightOption3.click();
-                    break;
-            }
-        }
-        Continue.click();
-    }
-
-    public void answerNeuteredOrSpayedQuestionAndMicrochipQuestion(String neutered_spayed, String microchipped) {
+    public void petsurePageFive(String neutered_spayed, String microchipped) {
         switch (neutered_spayed) {
             case "yes":
                 Yes.click();
@@ -266,12 +302,12 @@ public class PetDetails {
         }
     }
 
-    public void costPaidOrDonated(String donation) {
+    public void petsurePageSix(String donation) {
         PetCost.sendKeys(donation);
         Continue.click();
     }
 
-    public void dentalIllnessCover(String dental_illness) {
+    public void petsurePageSeven(String dental_illness) {
         switch (dental_illness) {
             case "yes":
                 Yes.click();
@@ -288,13 +324,13 @@ public class PetDetails {
         }
     }
 
-    public void healthCover(String visited_vet_prescribed_medication, String awaiting_surgery, String animal) {
-        JavascriptExecutor js = ((JavascriptExecutor) driver);
-        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-        WebElement conditionContinue = driver.findElement(By.xpath("//label[@for='yes']"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", conditionContinue);
-        Continue.click();
-    }
+//    public void healthCover(String visited_vet_prescribed_medication, String awaiting_surgery, String animal) {
+//        JavascriptExecutor js = ((JavascriptExecutor) driver);
+//        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+//        WebElement conditionContinue = driver.findElement(By.xpath("//label[@for='yes']"));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", conditionContinue);
+//        Continue.click();
+//    }
 
 
 }

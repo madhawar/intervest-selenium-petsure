@@ -1,6 +1,7 @@
 package Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,7 +42,7 @@ public class MedicalScreening {
         PageFactory.initElements(driver, this);
     }
 
-    public void healthCover(String visited_vet_prescribed_medication, String awaiting_surgery, String animal) {
+    public void petsureMedical(String visited_vet_prescribed_medication, String awaiting_surgery, String animal) {
         if (visited_vet_prescribed_medication.equals("no")) {
             No.click();
             Continue.click();
@@ -96,6 +97,11 @@ public class MedicalScreening {
                 switch (animal) {
                     case "cat":
                         EnterCondition.sendKeys("tick");
+                        try {
+                            Thread.sleep(10000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         SearchCondition.click();
                         driver.findElement(By.xpath("//button[@title='Ticks (feline)']")).click();
                         driver.findElement(By.xpath("//input[@name='answerNum' and @value='2']")).click();
@@ -118,6 +124,11 @@ public class MedicalScreening {
                         break;
                     case "dog":
                         EnterCondition.sendKeys("tick");
+                        try {
+                            Thread.sleep(10000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         SearchCondition.click();
                         driver.findElement(By.xpath("//button[@title='Ticks (canine)']")).click();
                         driver.findElement(By.xpath("//input[@name='answerNum' and @value='2']")).click();

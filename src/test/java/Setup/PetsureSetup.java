@@ -32,7 +32,7 @@ public class PetsureSetup {
         ChromeOptions chromeOptions = new ChromeOptions();
 //        chromeOptions.addArguments("--headless");
 //        chromeOptions.addArguments("--disable-gpu");
-//        chromeOptions.addArguments("--incognito");
+        chromeOptions.addArguments("--incognito");
 //        chromeOptions.addArguments("--disable-site-isolation-trials");
 
         driver = new ChromeDriver(chromeOptions);
@@ -42,7 +42,8 @@ public class PetsureSetup {
         driver.get(url);
         driver.findElement(By.xpath("//*[@id='accept-all']")).click();
 
-        Log.info("Top of the morning to you.");
+        String version = driver.findElement(By.cssSelector(".sticky-ver-label")).getText();
+        Log.info("Petsure v" + version);
     }
 
     @AfterTest

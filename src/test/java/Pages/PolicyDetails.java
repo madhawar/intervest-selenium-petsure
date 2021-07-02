@@ -53,22 +53,31 @@ public class PolicyDetails {
     @FindBy(xpath = "//label[@for='tomorrowDate']")
     WebElement Tomorrow;
 
+    @FindBy(xpath = "//label[@for='monthly']")
+    WebElement PayMonthly;
+
+    @FindBy(xpath = "//label[@for='annually']")
+    WebElement PayAnnually;
+
+    @FindBy(xpath = "//label[@for='confirmInfo']")
+    WebElement Agreement;
+
     public PolicyDetails(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public void agreeToAssumptions() {
+    public void petsurePageEight() {
         Yes.click();
         Continue.click();
     }
 
-    public void noOtherPets() {
+    public void petsurePageTen() {
         OtherPetsNo.click();
         Continue.click();
     }
 
-    public void alreadyCoveredPet() {
+    public void petsurePageTenAlreadyCoveredPet() {
         String covered_pet = "Togo";
         LocalDate current_date = LocalDate.now();
         int currentYear = current_date.getYear() +1;
@@ -93,9 +102,39 @@ public class PolicyDetails {
         Continue.click();
     }
 
-    public void policyStartDate() {
+    public void petsurePageEleven() {
         Tomorrow.click();
         Continue.click();
+    }
+
+    public void petsurePageThirteen() {
+        JavascriptExecutor js = ((JavascriptExecutor) driver);
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        Continue.click();
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void petsurePageFourteen() {
+        JavascriptExecutor js = ((JavascriptExecutor) driver);
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        Continue.click();
+    }
+
+    public void petsurePageFifteen() {
+        PayAnnually.click();
+        Agreement.click();
+        Continue.click();
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

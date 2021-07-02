@@ -14,10 +14,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
-public class TestPetDetails extends PetsureSetup {
+public class EndToEndTest extends PetsureSetup {
     @DataProvider
     public Object[][] petInfo() throws FileNotFoundException {
-        JsonElement jsonData = new JsonParser().parse(new FileReader("src/test/resources/pet-common.json"));
+        JsonElement jsonData = new JsonParser().parse(new FileReader("src/test/resources/pet-min.json"));
         JsonElement dataSet = jsonData.getAsJsonObject().get("petCommon");
         List<DataPOJO> testData = new Gson().fromJson(dataSet, new TypeToken<List<DataPOJO>>() {}.getType());
         Object[][] returnValue = new Object[testData.size()][1];
@@ -29,7 +29,7 @@ public class TestPetDetails extends PetsureSetup {
     }
 
     @Test(dataProvider = "petInfo")
-    public void navigate_to_homepage_enter_pet_details(DataPOJO petInfo) {
+    public void test(DataPOJO petInfo) {
         PetDetails objPet = new PetDetails(driver);
         MedicalScreening objHealth = new MedicalScreening(driver);
         PolicyDetails objPolicy = new PolicyDetails(driver);
