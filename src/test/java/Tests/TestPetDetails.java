@@ -29,7 +29,7 @@ public class TestPetDetails extends PetsureSetup {
     }
 
     @Test(dataProvider = "petInfo")
-    public void navigate_to_homepage_enter_pet_details(DataPOJO petInfo) {
+    public void petsurePolicy(DataPOJO petInfo) {
         PetDetails objPet = new PetDetails(driver);
         MedicalScreening objHealth = new MedicalScreening(driver);
         PolicyDetails objPolicy = new PolicyDetails(driver);
