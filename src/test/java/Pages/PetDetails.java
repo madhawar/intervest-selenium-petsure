@@ -202,7 +202,7 @@ public class PetDetails {
                     Log.info("SELECTED DOG > PEDIGREE");
                     break;
                 case "cross":
-                    if (dominant_breed == null) {
+                    if (dominant_breed.equals("")) {
                         CrossBreedDog.click();
                         BreedCross.sendKeys(breed);
                         BreedSelectCross.click();
@@ -223,14 +223,7 @@ public class PetDetails {
                     }
                     break;
                 case "mixed":
-                    if (dominant_breed != null) {
-                        MixedBreedDog.click();
-                        BreedDominant.sendKeys(dominant_breed);
-                        BreedSelectDominant.click();
-                        driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
-                        Log.info("SELECTED DOG > MIXED BREED > ENTERED DOMINANT BREED");
-                    }
-                    else {
+                    if (dominant_breed.equals("")) {
                         MixedBreedDog.click();
                         BreedNotsure.click();
 
@@ -253,7 +246,14 @@ public class PetDetails {
                                 DogWeightOption3.click();
                                 break;
                         }
-                    Log.info("SELECTED DOG > MIXED BREED > WEIGHT");
+                        Log.info("SELECTED DOG > MIXED BREED > WEIGHT");
+                    }
+                    else {
+                        MixedBreedDog.click();
+                        BreedDominant.sendKeys(dominant_breed);
+                        BreedSelectDominant.click();
+                        driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
+                        Log.info("SELECTED DOG > MIXED BREED > ENTERED DOMINANT BREED");
                     }
                     break;
             }
