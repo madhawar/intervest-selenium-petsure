@@ -1,5 +1,6 @@
 package Tests;
 
+import Pages.MedicalScreening;
 import Pages.PetDetails;
 import Pages.PolicyDetails;
 import Setup.PetsureSetup;
@@ -42,20 +43,34 @@ public class TestPetDetails extends PetsureSetup {
         return returnValue;
     }
 
-    @Test(priority = 1)
-    public void navigate_to_homepage_enter_pet_details() {
+    @Test(dataProvider = "petInfo")
+    public void navigate_to_homepage_enter_pet_details(DataPOJO petInfo) {
         PetDetails objPetDetails = new PetDetails(driver);
+        MedicalScreening objMedicalScreening = new MedicalScreening(driver);
+        PolicyDetails objPolicyDetails = new PolicyDetails(driver);
+
         objPetDetails.enterPetName();
-        objPetDetails.clickContinueButton();
-        objPetDetails.test();
+        objPetDetails.selectPetType(petInfo.getAnimal());
+        objPetDetails.selectPetGenderAndBirthDay(petInfo.getGender(), petInfo.getBirthDay(), petInfo.getBirthMonth(), petInfo.getBirthYear());
+        objPetDetails.selectBreed(petInfo.getAnimal(), petInfo.getType(), petInfo.getBreed(), petInfo.getDominantBreed());
+//        objPetDetails.dogCrossBreedNotListed(petInfo.getAnimal(), petInfo.getBreed(), petInfo.getDominantBreed());
+//        objPetDetails.dogMixedBreedNotListed(petInfo.getAnimal());
+        objPetDetails.answerNeuteredOrSpayedQuestionAndMicrochipQuestion(petInfo.getNeuteredSpayed(), petInfo.getMicrochipped());
+        objPetDetails.costPaidOrDonated(petInfo.getDonation());
+        objPetDetails.dentalIllnessCover(petInfo.getDentalIllness());
+//        objPetDetails.healthCover(petInfo.getHealthQuestion1(), petInfo.getHealthQuestion2(), petInfo.getAnimal());
+        objMedicalScreening.healthCover(petInfo.getHealthQuestion1(), petInfo.getHealthQuestion2(), petInfo.getAnimal());
+        objPolicyDetails.agreeToAssumptions();
+        objPolicyDetails.noOtherPets();
+        objPolicyDetails.policyStartDate();
+
+
     }
 
-    @Test(priority = 2)
+    @Test()
     public void enter_userDetails() {
         PolicyDetails objPolicyDetails = new PolicyDetails(driver);
-        objPolicyDetails.veryHeader();
-        objPolicyDetails.enterFullName("TestUser");
-        objPolicyDetails.enterBusinessEmail("TestUser@gmail.com");
-        objPolicyDetails.enterPasswrod("TestUserPassword");
+
+
     }
 }

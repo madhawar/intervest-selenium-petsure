@@ -1,5 +1,6 @@
 package Setup;
 
+import Pages.MedicalScreening;
 import Pages.PetDetails;
 import Pages.PolicyDetails;
 import Utils.Log;
@@ -9,17 +10,18 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class PetsureSetup {
     protected WebDriver driver;
-
-    PetDetails objPetDetails;
-    PolicyDetails objPolicyDetails;
 
     @BeforeTest
     public void setup() {
@@ -30,11 +32,11 @@ public class PetsureSetup {
         ChromeOptions chromeOptions = new ChromeOptions();
 //        chromeOptions.addArguments("--headless");
 //        chromeOptions.addArguments("--disable-gpu");
-        chromeOptions.addArguments("--incognito");
+//        chromeOptions.addArguments("--incognito");
 //        chromeOptions.addArguments("--disable-site-isolation-trials");
 
         driver = new ChromeDriver(chromeOptions);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, SECONDS);
         driver.manage().window().setSize(new Dimension(1920,1080));
 //        driver.manage().window().maximize();
         driver.get(url);
@@ -49,21 +51,5 @@ public class PetsureSetup {
 //            driver.quit();
         }
     }
-
-//    @Test(priority = 1)
-//    public void navigate_to_homepage_click_on_getstarted() {
-//        objPetDetails = new PetDetails(driver);
-//        objPetDetails.veryHeader();
-//        objPetDetails.clickOnGetStarted();
-//    }
-//
-//    @Test(priority = 2)
-//    public void enter_userDetails() {
-//        objPolicyDetails = new PolicyDetails(driver);
-//        objPolicyDetails.veryHeader();
-//        objPolicyDetails.enterFullName("TestUser");
-//        objPolicyDetails.enterBusinessEmail("TestUser@gmail.com");
-//        objPolicyDetails.enterPasswrod("TestUserPassword");
-//    }
 
 }
