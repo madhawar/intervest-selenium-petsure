@@ -215,10 +215,10 @@ public class PetDetails {
 
                         BreedCross1.sendKeys(breed);
                         BreedSelectCross1.click();
-                        driver.findElement(By.xpath("//*[@id='cross-" + breed + "']")).click();
+                        driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
                         BreedCross2.sendKeys(dominant_breed);
                         BreedSelectCross2.click();
-                        driver.findElement(By.xpath("//*[@id='cross-" + dominant_breed + "']")).click();
+                        driver.findElement(By.xpath("//*[@id='pure-" + dominant_breed + "']")).click();
                         Log.info("SELECTED DOG > CROSS BREED > ENTERED TWO CROSS BREEDS");
                     }
                     break;
@@ -252,7 +252,7 @@ public class PetDetails {
                         MixedBreedDog.click();
                         BreedDominant.sendKeys(dominant_breed);
                         BreedSelectDominant.click();
-                        driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
+                        driver.findElement(By.xpath("//*[@id='pure-" + dominant_breed + "']")).click();
                         Log.info("SELECTED DOG > MIXED BREED > ENTERED DOMINANT BREED");
                     }
                     break;
