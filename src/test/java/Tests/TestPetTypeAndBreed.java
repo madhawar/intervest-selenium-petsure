@@ -37,7 +37,7 @@ public class TestPetTypeAndBreed extends PetsureSetup {
         Payment objPayment = new Payment(driver);
         MyAccountLogin objLogin = new MyAccountLogin(driver);
 
-        objPet.petsurePageOne();
+        objPet.petsurePageOne(petInfo.getName());
         objPet.petsurePageTwo(petInfo.getAnimal());
         objPet.petsurePageThree(petInfo.getGender(), petInfo.getBirthDay(), petInfo.getBirthMonth(), petInfo.getBirthYear());
         objPet.petsurePageFour(petInfo.getAnimal(), petInfo.getType(), petInfo.getBreed(), petInfo.getDominantBreed());

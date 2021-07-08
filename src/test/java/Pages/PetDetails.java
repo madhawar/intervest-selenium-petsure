@@ -127,6 +127,9 @@ public class PetDetails {
     @FindBy(xpath = "//*[@id='20<']")
     WebElement DogWeightOption3;
 
+    @FindBy(xpath = "/html/body/div[1]/div/main/div[2]/div[1]/div/fieldset[1]/div/label")
+    WebElement Fixing;
+
     @FindBy(xpath = "//label[@for='isMicroChipped-yes']")
     WebElement MicrochipYes;
 
@@ -152,8 +155,8 @@ public class PetDetails {
         PageFactory.initElements(driver, this);
     }
 
-    public void petsurePageOne() {
-        PetName.sendKeys("Togo");
+    public void petsurePageOne(String name) {
+        PetName.sendKeys(name);
         Continue.click();
     }
 
@@ -422,9 +425,27 @@ public class PetDetails {
         }
     }
 
+    public void verifyFixing(String name, String gender) {
+        switch (gender) {
+            case "male":
+                Assert.assertEquals(Fixing.getText().toLowerCase(), "has " + name + " been neutered?");
+                break;
+            case "female" :
+                Assert.assertEquals(Fixing.getText().toLowerCase(), "has " + name + " been spayed?");
+                break;
+        }
+    }
+
     public void petsurePageSix(String donation) {
         PetCost.sendKeys(donation);
         Continue.click();
+    }
+
+    public void verifyDonation() {
+        PetCost.clear();
+        PetCost.sendKeys("10001");
+        PetCost.sendKeys(Keys.TAB);
+        Assert.assertFalse(Continue.isDisplayed());
     }
 
     public void petsurePageSeven(String dental_illness) {
