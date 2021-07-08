@@ -2,13 +2,14 @@ package Pages;
 
 import Utils.Log;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
-import java.util.Random;
+import java.time.LocalDate;
 
 import static org.testng.Assert.assertEquals;
 
@@ -30,6 +31,9 @@ public class PetDetails {
     @FindBy(xpath = "//*[@id='petName']")
     WebElement PetName;
 
+    @FindBy(xpath = "//*[@id='petName-error']")
+    WebElement PetNameError;
+
     @FindBy(xpath = "//label[@for='cat']")
     WebElement Cat;
 
@@ -50,6 +54,9 @@ public class PetDetails {
 
     @FindBy(xpath = "//*[@id='year']")
     WebElement Year;
+
+    @FindBy(xpath = "//*[@id='ageInfoText']")
+    WebElement PetAgeError;
 
     @FindBy(xpath = "//label[@for='pedigreeCat']")
     WebElement PedigreeCat;
@@ -132,6 +139,14 @@ public class PetDetails {
     @FindBy(xpath = "//*[@id='medicalWarningDismiss']")
     WebElement MedicalWarningDismiss;
 
+    private final static String NAME_REQUIRED = "Name is required";
+    private final static String NAME_INVALID = "Invalid input";
+    private final static String NAME_MIN = "Minimum length should be 2";
+    private final static String NAME_MAX = "Maximum length should be 49";
+
+    private final static String AGE_INVALID = "Please enter a valid birthday";
+    private final static String AGE_MIN = " must be at least 4 weeks old";
+
     public PetDetails(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -140,6 +155,59 @@ public class PetDetails {
     public void petsurePageOne() {
         PetName.sendKeys("Togo");
         Continue.click();
+    }
+
+    public void verifyPetName() {
+        PetName.clear();
+        PetName.sendKeys(Keys.TAB);
+        Assert.assertFalse(Continue.isDisplayed());
+        Assert.assertEquals(PetNameError.getText(), NAME_REQUIRED);
+
+        PetName.clear();
+        PetName.sendKeys("Lando Norris");
+        Assert.assertTrue(Continue.isDisplayed());
+
+        PetName.clear();
+        PetName.sendKeys("Max33");
+        Assert.assertTrue(Continue.isDisplayed());
+
+        PetName.clear();
+        PetName.sendKeys("44lewis");
+        Assert.assertTrue(Continue.isDisplayed());
+
+        PetName.clear();
+        PetName.sendKeys("Vet5tel");
+        Assert.assertTrue(Continue.isDisplayed());
+
+        PetName.clear();
+        PetName.sendKeys("Lando_Norris");
+        Assert.assertFalse(Continue.isDisplayed());
+        Assert.assertEquals(PetNameError.getText(), NAME_INVALID);
+
+        PetName.clear();
+        PetName.sendKeys("Lando@Norris");
+        Assert.assertFalse(Continue.isDisplayed());
+        Assert.assertEquals(PetNameError.getText(), NAME_INVALID);
+
+        PetName.clear();
+        PetName.sendKeys(" iceman");
+        Assert.assertFalse(Continue.isDisplayed());
+        Assert.assertEquals(PetNameError.getText(), NAME_INVALID);
+
+        PetName.clear();
+        PetName.sendKeys("_");
+        Assert.assertFalse(Continue.isDisplayed());
+        Assert.assertEquals(PetNameError.getText(), NAME_MIN);
+
+        PetName.clear();
+        PetName.sendKeys(" ");
+        Assert.assertFalse(Continue.isDisplayed());
+        Assert.assertEquals(PetNameError.getText(), NAME_MIN);
+
+        PetName.clear();
+        PetName.sendKeys("Loremipsumdolorsitametconsecteturadipiscingelitseddoeiusmodtemporincididuntut");
+        Assert.assertFalse(Continue.isDisplayed());
+        Assert.assertEquals(PetNameError.getText(), NAME_MAX);
     }
 
     public void petsurePageTwo(String animal) {
@@ -168,6 +236,76 @@ public class PetDetails {
         Month.sendKeys(birthmonth);
         Year.sendKeys(birthyear);
         Continue.click();
+    }
+
+    public void verifyPetAge(String gender, String birthday, String birthmonth, String birthyear) {
+        LocalDate current_date = LocalDate.now();
+        String recentYear = String.valueOf(current_date.getYear() -51);
+        String currentYear = String.valueOf(current_date.getYear());
+        String nextYear = String.valueOf(current_date.getYear() +1);
+        String recentMonth = String.valueOf(current_date.getMonthValue()-2);
+        String currentMonth = String.valueOf(current_date.getMonthValue());
+        String recentDay = String.valueOf(current_date.getDayOfMonth()-2);
+
+        switch (gender) {
+            case "male":
+                Male.click();
+                break;
+            case "female":
+                Female.click();
+                break;
+        }
+
+        Day.clear();
+        Month.clear();
+        Year.clear();
+        Day.sendKeys("00");
+        Month.sendKeys("00");
+        Year.sendKeys("0000");
+        Year.sendKeys(Keys.TAB);
+        Assert.assertFalse(Continue.isDisplayed());
+        Assert.assertEquals(PetAgeError.getText(), AGE_INVALID);
+
+        Day.clear();
+        Month.clear();
+        Year.clear();
+        Day.sendKeys(recentDay);
+        Month.sendKeys(currentMonth);
+        Year.sendKeys(currentYear);
+        Year.sendKeys(Keys.TAB);
+        Assert.assertFalse(Continue.isDisplayed());
+        Assert.assertEquals(PetAgeError.getText(), AGE_INVALID);
+
+        Day.clear();
+        Month.clear();
+        Year.clear();
+        Year.sendKeys(nextYear);
+        Year.sendKeys(Keys.TAB);
+        Assert.assertFalse(Continue.isDisplayed());
+        Assert.assertEquals(PetAgeError.getText(), AGE_INVALID);
+
+        Day.clear();
+        Month.clear();
+        Year.clear();
+        Year.sendKeys(recentYear);
+        Year.sendKeys(Keys.TAB);
+        Assert.assertFalse(Continue.isDisplayed());
+        Assert.assertEquals(PetAgeError.getText(), AGE_INVALID);
+
+        Day.clear();
+        Month.clear();
+        Year.clear();
+        Month.sendKeys(recentMonth);
+        Year.sendKeys(currentYear);
+        Year.sendKeys(Keys.TAB);
+        Assert.assertTrue(Continue.isDisplayed());
+
+        Day.clear();
+        Month.clear();
+        Year.clear();
+        Year.sendKeys(currentYear);
+        Year.sendKeys(Keys.TAB);
+        Assert.assertTrue(Continue.isDisplayed());
     }
 
     public void petsurePageFour(String animal, String type, String breed, String dominant_breed) {
@@ -223,37 +361,35 @@ public class PetDetails {
                     }
                     break;
                 case "mixed":
-                    if (dominant_breed.equals("")) {
-                        MixedBreedDog.click();
-                        BreedNotsure.click();
-
-                        Random r = new Random();
-                        int low = 1;
-                        int high = 4;
-                        int result = r.nextInt(high - low) + low;
-
-                        switch (result) {
-                            case 1:
-                                DogWeight.click();
-                                DogWeightOption1.click();
-                                break;
-                            case 2:
-                                DogWeight.click();
-                                DogWeightOption2.click();
-                                break;
-                            case 3:
-                                DogWeight.click();
-                                DogWeightOption3.click();
-                                break;
-                        }
-                        Log.info("SELECTED DOG > MIXED BREED > WEIGHT");
-                    }
-                    else {
-                        MixedBreedDog.click();
-                        BreedDominant.sendKeys(dominant_breed);
-                        BreedSelectDominant.click();
-                        driver.findElement(By.xpath("//*[@id='pure-" + dominant_breed + "']")).click();
-                        Log.info("SELECTED DOG > MIXED BREED > ENTERED DOMINANT BREED");
+                    switch (dominant_breed) {
+                        case "upto10":
+                            MixedBreedDog.click();
+                            BreedNotsure.click();
+                            DogWeight.click();
+                            DogWeightOption1.click();
+                            Log.info("SELECTED DOG > MIXED BREED > WEIGHT > UP TO 10KG");
+                            break;
+                        case "10to20":
+                            MixedBreedDog.click();
+                            BreedNotsure.click();
+                            DogWeight.click();
+                            DogWeightOption2.click();
+                            Log.info("SELECTED DOG > MIXED BREED > WEIGHT > 10KG - 20KG");
+                            break;
+                        case "20ormore":
+                            MixedBreedDog.click();
+                            BreedNotsure.click();
+                            DogWeight.click();
+                            DogWeightOption3.click();
+                            Log.info("SELECTED DOG > MIXED BREED > WEIGHT > 20KG OR MORE");
+                            break;
+                        default:
+                            MixedBreedDog.click();
+                            BreedDominant.sendKeys(dominant_breed);
+                            BreedSelectDominant.click();
+                            driver.findElement(By.xpath("//*[@id='pure-" + dominant_breed + "']")).click();
+                            Log.info("SELECTED DOG > MIXED BREED > ENTERED DOMINANT BREED");
+                            break;
                     }
                     break;
             }

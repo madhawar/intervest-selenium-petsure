@@ -34,7 +34,7 @@ public class PetsureSetup {
             chromeOptions.addArguments("--headless");
 //        chromeOptions.addArguments("--disable-gpu");
             chromeOptions.addArguments("--incognito");
-//        chromeOptions.addArguments("--disable-site-isolation-trials");
+        chromeOptions.addArguments("--disable-site-isolation-trials");
             driver = new ChromeDriver(chromeOptions);
         }
         else if (browser.equalsIgnoreCase("chrome")) {
@@ -42,7 +42,7 @@ public class PetsureSetup {
 //            chromeOptions.addArguments("--headless");
 //        chromeOptions.addArguments("--disable-gpu");
             chromeOptions.addArguments("--incognito");
-//        chromeOptions.addArguments("--disable-site-isolation-trials");
+        chromeOptions.addArguments("--disable-site-isolation-trials");
             driver = new ChromeDriver(chromeOptions);
         }
         else if (browser.equalsIgnoreCase("msedge")) {

@@ -2,7 +2,7 @@
 <suite name="Regression" parallel="false">
     <test name="Petsure Web" parallel="false">
         <classes>
-            <class name="Tests.EndToEndTest" />
+            <class name="Tests.TestPetTypeAndBreed" />
         </classes>
     </test>
 </suite>
