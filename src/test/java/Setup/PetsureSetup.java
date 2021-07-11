@@ -5,12 +5,15 @@ import Pages.PetDetails;
 import Pages.PolicyDetails;
 import Utils.Log;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
+import io.github.bonigarcia.wdm.managers.ChromiumDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 
@@ -28,6 +31,7 @@ public class PetsureSetup {
         String url = "https://" + System.getProperty("environment") + "/pet-name";
 
         WebDriverManager.chromedriver().setup();
+        WebDriverManager.firefoxdriver().setup();
 
         if (browser.equalsIgnoreCase("headless")) {
             ChromeOptions chromeOptions = new ChromeOptions();
@@ -47,6 +51,9 @@ public class PetsureSetup {
         }
         else if (browser.equalsIgnoreCase("msedge")) {
             driver = new EdgeDriver();
+        }
+        else if (browser.equalsIgnoreCase("firefox")) {
+            driver = new FirefoxDriver();
         }
         else {
             Log.error("UNABLE TO INITIATE WEB BROWSER.");
