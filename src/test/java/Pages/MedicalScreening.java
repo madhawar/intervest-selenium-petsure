@@ -104,7 +104,7 @@ public class MedicalScreening {
 
                 driver.switchTo().frame(0);
                 switch (animal) {
-                    case "cat" -> {
+                    case "cat":
                         EnterCondition.sendKeys("ticks");
                         try {
                             Thread.sleep(10000);
@@ -129,8 +129,8 @@ public class MedicalScreening {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                    }
-                    case "dog" -> {
+
+                    case "dog":
                         EnterCondition.sendKeys("ticks");
                         try {
                             Thread.sleep(10000);
@@ -155,7 +155,6 @@ public class MedicalScreening {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                    }
                 }
             }
         }

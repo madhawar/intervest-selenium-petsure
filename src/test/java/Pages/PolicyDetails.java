@@ -189,22 +189,20 @@ public class PolicyDetails {
         boolean dental_illness_cover;
 
         switch (dental_illness) {
-            case "yes" -> {
+            case "yes" :
                 try {
                     dental_illness_cover = driver.findElement(By.cssSelector("body")).getText().contains("Dental Illness Cover");
                 } catch (NoSuchElementException e){
                     dental_illness_cover = false;
                 }
                 Assert.assertTrue(dental_illness_cover);
-            }
-            case "no" -> {
+            case "no" :
                 try {
                     dental_illness_cover = driver.findElement(By.cssSelector("body")).getText().contains("Dental Illness Cover");
                 } catch (NoSuchElementException e){
                     dental_illness_cover = false;
                 }
                 Assert.assertFalse(dental_illness_cover);
-            }
         }
     }
 
@@ -212,22 +210,20 @@ public class PolicyDetails {
         boolean missing_pet_cover;
 
         switch (microchipped) {
-            case "yes" -> {
+            case "yes" :
                 try {
                     missing_pet_cover = driver.findElement(By.cssSelector("body")).getText().contains("Missing Pet Cover");
                 } catch (NoSuchElementException e){
                     missing_pet_cover = false;
                 }
                 Assert.assertTrue(missing_pet_cover);
-            }
-            case "no" -> {
+            case "no" :
                 try {
                     missing_pet_cover = driver.findElement(By.cssSelector("body")).getText().contains("Missing Pet Cover");
                 } catch (NoSuchElementException e){
                     missing_pet_cover = false;
                 }
                 Assert.assertFalse(missing_pet_cover);
-            }
         }
     }
 

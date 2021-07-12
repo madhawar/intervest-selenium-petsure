@@ -224,8 +224,8 @@ public class PetDetails {
     // What kind of pet is Intervest?
     public void petsurePageTwo(String animal) {
         switch (animal) {
-            case "cat" -> Cat.click();
-            case "dog" -> Dog.click();
+            case "cat" : Cat.click();
+            case "dog" : Dog.click();
         }
         Continue.click();
     }
@@ -234,8 +234,8 @@ public class PetDetails {
     // When is Intervest's birthday?
     public void petsurePageThree(String gender, String birthday, String birthmonth, String birthyear) {
         switch (gender) {
-            case "male" -> Male.click();
-            case "female" -> Female.click();
+            case "male" : Male.click();
+            case "female" : Female.click();
         }
 
         Day.sendKeys(birthday);
@@ -254,8 +254,8 @@ public class PetDetails {
         String recentDay = String.valueOf(current_date.getDayOfMonth()-2);
 
         switch (gender) {
-            case "male" -> Male.click();
-            case "female" -> Female.click();
+            case "male" : Male.click();
+            case "female" : Female.click();
         }
 
         Day.clear();
@@ -314,24 +314,21 @@ public class PetDetails {
     public void petsurePageFour(String animal, String type, String breed, String dominant_breed) {
         if (animal.equals("cat")) {
             switch (type) {
-                case "moggie" -> {
+                case "moggie" :
                     MoggieCat.click();
                     Log.info("SELECTED CAT > MOGGIE");
-                }
-                case "pedigree" -> {
+                case "pedigree" :
                     PedigreeCat.click();
                     Breed.sendKeys(breed);
                     BreedSelect.click();
                     driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
                     Log.info("SELECTED CAT > PEDIGREE");
-                }
-                case "other" -> {
+                case "other" :
                     OtherCat.click();
                     Breed.sendKeys(breed);
                     BreedSelect.click();
                     driver.findElement(By.xpath("//*[@id='pure-" + breed + "']")).click();
                     Log.info("SELECTED CAT > OTHER");
-                }
             }
         } else if (animal.equals("dog")) {
             switch (type) {
@@ -365,34 +362,31 @@ public class PetDetails {
                     break;
                 case "mixed":
                     switch (dominant_breed) {
-                        case "upto10" -> {
+                        case "upto10" :
                             MixedBreedDog.click();
                             BreedNotsure.click();
                             DogWeight.click();
                             DogWeightOption1.click();
                             Log.info("SELECTED DOG > MIXED BREED > WEIGHT > UP TO 10KG");
-                        }
-                        case "10to20" -> {
+                        case "10to20" :
                             MixedBreedDog.click();
                             BreedNotsure.click();
                             DogWeight.click();
                             DogWeightOption2.click();
                             Log.info("SELECTED DOG > MIXED BREED > WEIGHT > 10KG - 20KG");
-                        }
-                        case "20ormore" -> {
+                        case "20ormore" :
                             MixedBreedDog.click();
                             BreedNotsure.click();
                             DogWeight.click();
                             DogWeightOption3.click();
                             Log.info("SELECTED DOG > MIXED BREED > WEIGHT > 20KG OR MORE");
-                        }
-                        default -> {
+
+                        default :
                             MixedBreedDog.click();
                             BreedDominant.sendKeys(dominant_breed);
                             BreedSelectDominant.click();
                             driver.findElement(By.xpath("//*[@id='pure-" + dominant_breed + "']")).click();
                             Log.info("SELECTED DOG > MIXED BREED > ENTERED DOMINANT BREED");
-                        }
                     }
                     break;
             }
@@ -404,29 +398,27 @@ public class PetDetails {
     // Has Intervest been microchipped?
     public void petsurePageFive(String neutered_spayed, String microchipped) {
         switch (neutered_spayed) {
-            case "yes" -> Yes.click();
-            case "no" -> No.click();
+            case "yes" : Yes.click();
+            case "no" : No.click();
         }
 
         switch (microchipped) {
-            case "yes" -> {
+            case "yes" :
                 MicrochipYes.click();
                 Continue.click();
                 Log.info("MICROCHIPPED. ELIGIBLE FOR MISSING PET COVER.");
-            }
-            case "no" -> {
+            case "no" :
                 MicrochipNo.click();
                 Continue.click();
                 Confirm.click();
                 Log.info("NOT MICROCHIPPED. NOT ELIGIBLE FOR MISSING PET COVER.");
-            }
         }
     }
 
     public void verifyFixing(String name, String gender) {
         switch (gender) {
-            case "male" -> Assert.assertEquals(Fixing.getText().toLowerCase(), "has " + name + " been neutered?");
-            case "female" -> Assert.assertEquals(Fixing.getText().toLowerCase(), "has " + name + " been spayed?");
+            case "male" : Assert.assertEquals(Fixing.getText().toLowerCase(), "has " + name + " been neutered?");
+            case "female" : Assert.assertEquals(Fixing.getText().toLowerCase(), "has " + name + " been spayed?");
         }
     }
 
@@ -446,14 +438,12 @@ public class PetDetails {
     // Would you like to cover Intervest for dental illnesses?
     public void petsurePageSeven(String dental_illness) {
         switch (dental_illness) {
-            case "yes" -> {
+            case "yes" :
                 Yes.click();
                 Log.info("DENTAL ILLNESS REQUESTED.DENTAL ILLNESS COVER WILL BEINCLUDED.");
-            }
-            case "no" -> {
+            case "no" :
                 No.click();
                 Log.info("DENTAL ILLNESS NOT REQUESTED. NOT ELIGIBLE FOR DENTAL ILLNESS COVER.");
-            }
         }
         Continue.click();
         try {
