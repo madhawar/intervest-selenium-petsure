@@ -200,12 +200,12 @@ public class PetDetails {
         PetName.clear();
         PetName.sendKeys("_");
         Assert.assertFalse(Continue.isDisplayed());
-        Assert.assertEquals(PetNameError.getText(), NAME_MIN);
+        Assert.assertEquals(PetNameError.getText(), NAME_INVALID);
 
         PetName.clear();
         PetName.sendKeys(" ");
         Assert.assertFalse(Continue.isDisplayed());
-        Assert.assertEquals(PetNameError.getText(), NAME_MIN);
+        Assert.assertEquals(PetNameError.getText(), NAME_INVALID);
 
         PetName.clear();
         PetName.sendKeys("Loremipsumdolorsitametconsecteturadipiscingelitseddoeiusmodtemporincididuntut");
