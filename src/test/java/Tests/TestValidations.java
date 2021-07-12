@@ -60,11 +60,6 @@ public class TestValidations extends PetsureSetup {
     @Test(dataProvider = "petFixing")
     public void validate_fixing_question(DataPOJO petInfo) {
         PetDetails objPet = new PetDetails(driver);
-        MedicalScreening objHealth = new MedicalScreening(driver);
-        PolicyDetails objPolicy = new PolicyDetails(driver);
-        OwnerDetails objOwner = new OwnerDetails(driver);
-        Payment objPayment = new Payment(driver);
-        MyAccountLogin objLogin = new MyAccountLogin(driver);
 
         objPet.petsurePageOne(petInfo.getName());
         objPet.petsurePageTwo(petInfo.getAnimal());
@@ -78,11 +73,6 @@ public class TestValidations extends PetsureSetup {
     @Test(dataProvider = "petInfo")
     public void validate_paid_donated_amount(DataPOJO petInfo) {
         PetDetails objPet = new PetDetails(driver);
-        MedicalScreening objHealth = new MedicalScreening(driver);
-        PolicyDetails objPolicy = new PolicyDetails(driver);
-        OwnerDetails objOwner = new OwnerDetails(driver);
-        Payment objPayment = new Payment(driver);
-        MyAccountLogin objLogin = new MyAccountLogin(driver);
 
         objPet.petsurePageOne(petInfo.getName());
         objPet.petsurePageTwo(petInfo.getAnimal());
@@ -90,5 +80,26 @@ public class TestValidations extends PetsureSetup {
         objPet.petsurePageFour(petInfo.getAnimal(), petInfo.getType(), petInfo.getBreed(), petInfo.getDominantBreed());
         objPet.petsurePageFive(petInfo.getNeuteredSpayed(), petInfo.getMicrochipped());
         objPet.verifyDonation();
+    }
+
+    @Test(dataProvider = "petInfo")
+    public void policy_owner_age_validations(DataPOJO petInfo) {
+        PetDetails objPet = new PetDetails(driver);
+        MedicalScreening objHealth = new MedicalScreening(driver);
+        PolicyDetails objPolicy = new PolicyDetails(driver);
+        OwnerDetails objOwner = new OwnerDetails(driver);
+
+        objPet.petsurePageOne(petInfo.getName());
+        objPet.petsurePageTwo(petInfo.getAnimal());
+        objPet.petsurePageThree(petInfo.getGender(), petInfo.getBirthDay(), petInfo.getBirthMonth(), petInfo.getBirthYear());
+        objPet.petsurePageFour(petInfo.getAnimal(), petInfo.getType(), petInfo.getBreed(), petInfo.getDominantBreed());
+        objPet.petsurePageFive(petInfo.getNeuteredSpayed(), petInfo.getMicrochipped());
+        objPet.petsurePageSix(petInfo.getDonation());
+        objPet.petsurePageSeven(petInfo.getDentalIllness());
+        objHealth.petsureMedical(petInfo.getHealthQuestion1(), petInfo.getHealthQuestion2(), petInfo.getAnimal());
+        objPolicy.petsurePageNine();
+        objPolicy.petsurePageTen();
+        objPolicy.petsurePageEleven();
+        objOwner.verifyOwnerAge();
     }
 }

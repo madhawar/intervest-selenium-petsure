@@ -45,10 +45,10 @@ public class EndToEndTest extends PetsureSetup {
         objPet.petsurePageSix(petInfo.getDonation());
         objPet.petsurePageSeven(petInfo.getDentalIllness());
         objHealth.petsureMedical(petInfo.getHealthQuestion1(), petInfo.getHealthQuestion2(), petInfo.getAnimal());
-        objPolicy.petsurePageEight();
+        objPolicy.petsurePageNine();
         objPolicy.petsurePageTen();
         objPolicy.petsurePageEleven();
-        objOwner.petsurePageTwelve();
+        objOwner.ownerDetails();
         objPolicy.petsurePageThirteen();
         objPolicy.petsurePageFourteen();
         objPolicy.petsurePageFifteen();

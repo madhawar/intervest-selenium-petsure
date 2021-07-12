@@ -67,16 +67,20 @@ public class PolicyDetails {
         PageFactory.initElements(driver, this);
     }
 
-    public void petsurePageEight() {
+    // We've made a few assumptions
+    public void petsurePageNine() {
         Yes.click();
         Continue.click();
     }
 
+    // Would you like to cover any other pets?
     public void petsurePageTen() {
         OtherPetsNo.click();
         Continue.click();
     }
 
+    // Would you like to cover any other pets?
+    // They already have cover
     public void petsurePageTenAlreadyCoveredPet() {
         String covered_pet = "Togo";
         LocalDate current_date = LocalDate.now();
@@ -102,6 +106,7 @@ public class PolicyDetails {
         Continue.click();
     }
 
+    // When will your policy start?
     public void petsurePageEleven() {
         Tomorrow.click();
         Continue.click();

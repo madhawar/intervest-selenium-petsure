@@ -14,10 +14,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
-public class TestPetDetails extends PetsureSetup {
+public class TestPetMedical extends PetsureSetup {
     @DataProvider
     public Object[][] petInfo() throws FileNotFoundException {
-        JsonElement jsonData = new JsonParser().parse(new FileReader("src/test/resources/pet-common.json"));
+        JsonElement jsonData = new JsonParser().parse(new FileReader("src/test/resources/pet-medical.json"));
         JsonElement dataSet = jsonData.getAsJsonObject().get("petCommon");
         List<DataPOJO> testData = new Gson().fromJson(dataSet, new TypeToken<List<DataPOJO>>() {}.getType());
         Object[][] returnValue = new Object[testData.size()][1];
@@ -29,7 +29,7 @@ public class TestPetDetails extends PetsureSetup {
     }
 
     @Test(dataProvider = "petInfo")
-    public void petsurePolicy(DataPOJO petInfo) {
+    public void policy_with_medical(DataPOJO petInfo) {
         PetDetails objPet = new PetDetails(driver);
         MedicalScreening objHealth = new MedicalScreening(driver);
         PolicyDetails objPolicy = new PolicyDetails(driver);
@@ -45,10 +45,10 @@ public class TestPetDetails extends PetsureSetup {
         objPet.petsurePageSix(petInfo.getDonation());
         objPet.petsurePageSeven(petInfo.getDentalIllness());
         objHealth.petsureMedical(petInfo.getHealthQuestion1(), petInfo.getHealthQuestion2(), petInfo.getAnimal());
-        objPolicy.petsurePageEight();
+        objPolicy.petsurePageNine();
         objPolicy.petsurePageTen();
         objPolicy.petsurePageEleven();
-        objOwner.petsurePageTwelve();
+        objOwner.ownerDetails();
         objPolicy.petsurePageThirteen();
         objPolicy.petsurePageFourteen();
         objPolicy.petsurePageFifteen();

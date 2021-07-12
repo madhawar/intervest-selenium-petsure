@@ -43,6 +43,8 @@ public class MedicalScreening {
         PageFactory.initElements(driver, this);
     }
 
+    // Has Intervest visited the vet and/or been prescribed medication in the last 2 years?
+    // Is Intervest awaiting a diagnosis, surgery or test results for a condition?
     public void petsureMedical(String visited_vet_prescribed_medication, String awaiting_surgery, String animal) {
         if (visited_vet_prescribed_medication.equals("no")) {
             No.click();
@@ -102,7 +104,7 @@ public class MedicalScreening {
 
                 driver.switchTo().frame(0);
                 switch (animal) {
-                    case "cat":
+                    case "cat" -> {
                         EnterCondition.sendKeys("ticks");
                         try {
                             Thread.sleep(10000);
@@ -122,15 +124,13 @@ public class MedicalScreening {
                         MedicalFinish.click();
                         Continue.click();
                         Log.info("COMPLETED MEDICAL SCREENING.");
-
                         try {
                             Thread.sleep(10000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-
-                        break;
-                    case "dog":
+                    }
+                    case "dog" -> {
                         EnterCondition.sendKeys("ticks");
                         try {
                             Thread.sleep(10000);
@@ -150,14 +150,12 @@ public class MedicalScreening {
                         MedicalFinish.click();
                         Continue.click();
                         Log.info("COMPLETED MEDICAL SCREENING.");
-
                         try {
                             Thread.sleep(10000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-
-                        break;
+                    }
                 }
             }
         }

@@ -1,14 +1,13 @@
 package Pages;
 
 import Utils.Log;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -35,6 +34,9 @@ public class OwnerDetails {
 
     @FindBy(xpath = "//*[@id='year']")
     WebElement Year;
+
+    @FindBy(xpath = "//*[@id='ageInfoText']")
+    WebElement AgeError;
 
     @FindBy(xpath = "//*[@id='email']")
     WebElement Email;
@@ -72,12 +74,17 @@ public class OwnerDetails {
     @FindBy(xpath = "//label[@for='postPrefer']")
     WebElement promoPost;
 
+    private final static String OWNER_AGE_INVALID = "Please enter your Full Date of Birth";
+    private final static String OWNER_AGE_MIN = "You must be over 18 to purchase one of our policies";
+    private final static String OWNER_AGE_MAX = "You must be under 120 years to purchase one of our policies";
+
     public OwnerDetails(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public void petsurePageTwelve() {
+    // Let’s get some of your details
+    public void ownerDetails() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuMMddHHmmss");
         LocalDateTime now = LocalDateTime.now();
         String email_address = "madhawa_ist+" + dtf.format(now) + "pet@pm.me";
@@ -108,6 +115,54 @@ public class OwnerDetails {
         }
     }
 
+    public void verifyOwnerAge() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuMMddHHmmss");
+        LocalDateTime now = LocalDateTime.now();
+        String email_address = "madhawa_ist+" + dtf.format(now) + "pet@pm.me";
 
+        Select title = new Select(Title);
+        title.selectByVisibleText("Mr");
+
+        Firstname.sendKeys("Madhawa");
+        Lastname.sendKeys("GenericSL");
+
+        Email.sendKeys(email_address);
+        Telephone.sendKeys("0777837227");
+        Postcode.sendKeys("NN47YB");
+        PostcodeStaysure.click();
+
+        LocalDate current_date = LocalDate.now();
+        String maxAge = String.valueOf(current_date.getYear() -121);
+        String minAge = String.valueOf(current_date.getYear() - 17);
+
+        Day.clear();
+        Day.sendKeys("27");
+        Month.clear();
+        Month.sendKeys("05");
+        Year.clear();
+        Year.sendKeys(maxAge);
+        Year.sendKeys(Keys.TAB);
+        Assert.assertEquals(AgeError.getText(), OWNER_AGE_MAX);
+
+        Year.clear();
+        Year.sendKeys(minAge);
+        Year.sendKeys(Keys.TAB);
+        Assert.assertEquals(AgeError.getText(), OWNER_AGE_MIN);
+
+        Day.clear();
+        Day.sendKeys("32");
+        Day.sendKeys(Keys.TAB);
+        Assert.assertEquals(AgeError.getText(), OWNER_AGE_INVALID);
+
+        Month.clear();
+        Month.sendKeys("13");
+        Month.sendKeys(Keys.TAB);
+        Assert.assertEquals(AgeError.getText(), OWNER_AGE_INVALID);
+
+        Year.clear();
+        Year.sendKeys("0000");
+        Year.sendKeys(Keys.TAB);
+        Assert.assertEquals(AgeError.getText(), OWNER_AGE_INVALID);
+    }
 
 }
