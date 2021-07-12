@@ -4,6 +4,7 @@
         <classes>
             <class name="Tests.TestValidations" />
             <class name="Tests.TestPetTypeAndBreed" />
+            <class name="Tests.TestPetExtras" />
             <class name="Tests.TestPetMedical" />
         </classes>
     </test>

@@ -1,6 +1,8 @@
 package Pages;
 
 import Utils.Log;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +11,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.testng.Assert.assertEquals;
 
@@ -455,14 +462,5 @@ public class PetDetails {
             e.printStackTrace();
         }
     }
-
-//    public void healthCover(String visited_vet_prescribed_medication, String awaiting_surgery, String animal) {
-//        JavascriptExecutor js = ((JavascriptExecutor) driver);
-//        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-//        WebElement conditionContinue = driver.findElement(By.xpath("//label[@for='yes']"));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", conditionContinue);
-//        Continue.click();
-//    }
-
 
 }

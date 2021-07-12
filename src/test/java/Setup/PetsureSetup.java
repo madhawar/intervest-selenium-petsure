@@ -14,6 +14,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 
@@ -36,17 +38,14 @@ public class PetsureSetup {
         if (browser.equalsIgnoreCase("headless")) {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.addArguments("--headless");
-//        chromeOptions.addArguments("--disable-gpu");
+        chromeOptions.addArguments("--disable-gpu");
             chromeOptions.addArguments("--incognito");
-        chromeOptions.addArguments("--disable-site-isolation-trials");
             driver = new ChromeDriver(chromeOptions);
         }
         else if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions chromeOptions = new ChromeOptions();
-//            chromeOptions.addArguments("--headless");
-//        chromeOptions.addArguments("--disable-gpu");
+        chromeOptions.addArguments("--disable-gpu");
             chromeOptions.addArguments("--incognito");
-        chromeOptions.addArguments("--disable-site-isolation-trials");
             driver = new ChromeDriver(chromeOptions);
         }
         else if (browser.equalsIgnoreCase("msedge")) {
@@ -61,7 +60,6 @@ public class PetsureSetup {
 
         driver.manage().timeouts().implicitlyWait(10, SECONDS);
         driver.manage().window().setSize(new Dimension(1920,1080));
-//        driver.manage().window().maximize();
         driver.get(url);
         driver.findElement(By.xpath("//*[@id='accept-all']")).click();
 

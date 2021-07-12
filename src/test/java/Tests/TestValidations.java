@@ -41,14 +41,14 @@ public class TestValidations extends PetsureSetup {
         return returnValue;
     }
 
-    @Test()
+    @Test(priority=1)
     public void validate_pet_name() {
         PetDetails objPet = new PetDetails(driver);
 
         objPet.verifyPetName();
     }
 
-    @Test(dataProvider = "petInfo")
+    @Test(priority=2, dataProvider = "petInfo")
     public void validate_birthday(DataPOJO petInfo) {
         PetDetails objPet = new PetDetails(driver);
 
@@ -57,7 +57,7 @@ public class TestValidations extends PetsureSetup {
         objPet.verifyPetAge(petInfo.getGender(), petInfo.getBirthDay(), petInfo.getBirthMonth(), petInfo.getBirthYear());
     }
 
-    @Test(dataProvider = "petFixing")
+    @Test(priority=3, dataProvider = "petFixing")
     public void validate_fixing_question(DataPOJO petInfo) {
         PetDetails objPet = new PetDetails(driver);
 
@@ -70,7 +70,7 @@ public class TestValidations extends PetsureSetup {
         objPet.verifyFixing(petInfo.getName(), petInfo.getGender());
     }
 
-    @Test(dataProvider = "petInfo")
+    @Test(priority=4, dataProvider = "petInfo")
     public void validate_paid_donated_amount(DataPOJO petInfo) {
         PetDetails objPet = new PetDetails(driver);
 
@@ -82,7 +82,7 @@ public class TestValidations extends PetsureSetup {
         objPet.verifyDonation();
     }
 
-    @Test(dataProvider = "petInfo")
+    @Test(priority=5, dataProvider = "petInfo")
     public void policy_owner_age_validations(DataPOJO petInfo) {
         PetDetails objPet = new PetDetails(driver);
         MedicalScreening objHealth = new MedicalScreening(driver);
